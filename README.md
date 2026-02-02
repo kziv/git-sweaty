@@ -65,7 +65,7 @@ Then enable the scheduled workflow in `.github/workflows/sync.yml`.
 - `activities/raw/` contains raw Strava payloads. Keep or prune based on your privacy needs.
 - SVGs are deterministic and contain `<title>` tooltips for hover details.
 - README updates automatically between `<!-- HEATMAPS:START -->` and `<!-- HEATMAPS:END -->`.
-- The sync script rate-limits to free Strava API caps (200 overall / 15 min, 2,000 overall daily; 100 read / 15 min, 1,000 read daily). Initial backfill may take multiple days; the cursor is stored in `data/backfill_state.json` and resumes automatically on the next run.
+- The sync script rate-limits to free Strava API caps (200 overall / 15 min, 2,000 overall daily; 100 read / 15 min, 1,000 read daily). Initial backfill may take multiple days; the cursor is stored in `data/backfill_state.json` and resumes automatically. Once backfill is complete, only the recent sync runs.
 
 <!-- HEATMAPS:START -->
 ## Heatmaps

@@ -359,20 +359,21 @@ def sync_strava(dry_run: bool, prune_deleted: bool) -> Dict:
     max_ts = None
     exhausted = False
     before = None
+    skip_backfill = False
 
     state = _load_state() if resume_backfill and not dry_run else {}
     if state and state.get("completed"):
-        before = None
+        skip_backfill = True
     elif state and state.get("after") == after and state.get("next_before") is not None:
         before = int(state["next_before"])
 
-    if before is None:
+    if before is None and not skip_backfill:
         before = int(utc_now().timestamp())
 
     rate_limited = bool(recent_summary.get("rate_limited"))
     rate_limit_message = recent_summary.get("rate_limit_message", "")
 
-    if not rate_limited:
+    if not rate_limited and not skip_backfill:
         while True:
             try:
                 activities = _fetch_page(token, per_page, page, after, before, limiter)
@@ -408,13 +409,18 @@ def sync_strava(dry_run: bool, prune_deleted: bool) -> Dict:
                 os.remove(os.path.join(RAW_DIR, filename))
                 deleted += 1
 
-    completed = exhausted and not rate_limited
+    completed = True if skip_backfill else (exhausted and not rate_limited)
     next_before = None
     if not completed and min_ts is not None:
         next_before = int(min_ts + 1)
 
     if not dry_run:
-        if rate_limited and min_ts is None and state:
+        if skip_backfill and state:
+            state_update = dict(state)
+            state_update["completed"] = True
+            state_update["rate_limited"] = rate_limited
+            state_update["last_run_utc"] = utc_now().isoformat()
+        elif rate_limited and min_ts is None and state:
             state_update = dict(state)
             state_update["rate_limited"] = True
             state_update["last_run_utc"] = utc_now().isoformat()

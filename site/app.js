@@ -1263,12 +1263,11 @@ async function init() {
         header.className = "type-header";
         header.textContent = "All Workouts";
         section.appendChild(header);
-        if (showMoreStats) {
-          section.appendChild(buildStatsOverview(payload, types, years, selectedType));
-        }
-
         const list = document.createElement("div");
         list.className = "type-list";
+        if (showMoreStats) {
+          list.appendChild(buildStatsOverview(payload, types, years, selectedType));
+        }
         years.forEach((year) => {
           const yearData = payload.aggregates?.[String(year)] || {};
           const aggregates = combineYearAggregates(yearData, types);
@@ -1300,12 +1299,12 @@ async function init() {
           header.className = "type-header";
           header.textContent = displayType(type);
           section.appendChild(header);
-          if (showMoreStats) {
-            section.appendChild(buildStatsOverview(payload, [type], years, selectedType));
-          }
 
           const list = document.createElement("div");
           list.className = "type-list";
+          if (showMoreStats) {
+            list.appendChild(buildStatsOverview(payload, [type], years, selectedType));
+          }
           years.forEach((year) => {
             const aggregates = payload.aggregates?.[String(year)]?.[type] || {};
             const card = buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" });

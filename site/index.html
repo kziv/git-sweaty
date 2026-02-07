@@ -830,6 +830,72 @@
         }
       }
 
+      @media (max-width: 900px) {
+        body {
+          padding: 24px 12px;
+          overflow-x: hidden;
+        }
+        .app {
+          overflow-x: hidden;
+        }
+        header,
+        .card {
+          padding: 16px;
+        }
+        h1 {
+          font-size: 22px;
+        }
+        .header-top {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto auto auto;
+          justify-items: center;
+          row-gap: 8px;
+        }
+        h1 {
+          grid-column: 1;
+          grid-row: 2;
+          text-align: center;
+        }
+        .updated {
+          grid-column: 1;
+          grid-row: 1;
+          justify-self: center;
+          text-align: center;
+        }
+        .controls {
+          grid-column: 1;
+          grid-row: 3;
+          justify-content: flex-start;
+          justify-self: center;
+          display: flex;
+          flex-direction: column;
+          width: min(360px, 100%);
+          align-items: stretch;
+          gap: 10px;
+        }
+        .filter-menu {
+          width: 100%;
+        }
+        .filter-menu-options {
+          position: static;
+          margin-top: 8px;
+        }
+        .button-row {
+          display: none;
+        }
+        .repo-link {
+          grid-column: 1;
+          grid-row: 4;
+          justify-self: center;
+        }
+        .summary {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .labeled-card-title {
+          font-size: 12px;
+        }
+      }
+
       @media (max-width: 720px) {
         :root {
           --cell: 10px;
@@ -916,7 +982,7 @@
           left: 14px;
           right: 14px;
           z-index: 2;
-          font-size: 13px;
+          font-size: 11px;
           line-height: 1;
           pointer-events: none;
           white-space: nowrap;

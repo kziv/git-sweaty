@@ -294,7 +294,7 @@ function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, 
   });
 
   const cards = [
-    { title: "Total Workouts", value: totals.count.toLocaleString() },
+    { title: "Total Activities", value: totals.count.toLocaleString() },
   ];
   if (!hideDistanceElevation) {
     cards.push({
@@ -514,7 +514,7 @@ function buildCard(type, year, aggregates, units, options = {}) {
   });
 
   const statItems = [
-    { label: "Total Workouts", value: totals.count.toLocaleString() },
+    { label: "Total Activities", value: totals.count.toLocaleString() },
     { label: "Total Time", value: formatDuration(totals.moving_time) },
   ];
 

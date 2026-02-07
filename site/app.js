@@ -490,11 +490,6 @@ function buildCard(type, year, aggregates, units, options = {}) {
   const card = document.createElement("div");
   card.className = "card year-card";
 
-  const title = document.createElement("div");
-  title.className = "card-title";
-  title.textContent = String(year);
-  card.appendChild(title);
-
   const body = document.createElement("div");
   body.className = "card-body";
 
@@ -558,14 +553,6 @@ function buildEmptyYearCard(type, year, labelOverride) {
   const card = document.createElement("div");
   card.className = "card card-empty-year";
 
-  const row = document.createElement("div");
-  row.className = "empty-year-inline";
-
-  const title = document.createElement("div");
-  title.className = "card-title empty-year-title";
-  title.textContent = String(year);
-  row.appendChild(title);
-
   const placeholder = document.createElement("div");
   placeholder.className = "year-empty-placeholder";
 
@@ -580,9 +567,24 @@ function buildEmptyYearCard(type, year, labelOverride) {
   message.textContent = `no ${String(label).toLowerCase()} activities`;
   placeholder.appendChild(message);
 
-  row.appendChild(placeholder);
-  card.appendChild(row);
+  card.appendChild(placeholder);
   return card;
+}
+
+function buildLabeledCardRow(label, card, kind) {
+  const row = document.createElement("div");
+  row.className = "labeled-card-row";
+  if (kind) {
+    row.classList.add(`labeled-card-row-${kind}`);
+  }
+
+  const title = document.createElement("div");
+  title.className = "labeled-card-title";
+  title.textContent = label;
+
+  row.appendChild(title);
+  row.appendChild(card);
+  return row;
 }
 
 function combineYearAggregates(yearData, types) {
@@ -773,11 +775,6 @@ function buildStatPanel(title, subtitle) {
 function buildStatsOverview(payload, types, years, color) {
   const card = document.createElement("div");
   card.className = "card more-stats";
-
-  const title = document.createElement("div");
-  title.className = "card-title more-stats-title";
-  title.textContent = "Workout Frequency";
-  card.appendChild(title);
 
   const body = document.createElement("div");
   body.className = "more-stats-body";
@@ -1573,7 +1570,13 @@ async function init() {
           : years.slice();
         const emptyLabel = types.map((type) => displayType(type)).join(" + ");
         if (showMoreStats) {
-          list.appendChild(buildStatsOverview(payload, types, cardYears, frequencyColor));
+          list.appendChild(
+            buildLabeledCardRow(
+              "Workout Frequency",
+              buildStatsOverview(payload, types, cardYears, frequencyColor),
+              "frequency",
+            ),
+          );
         }
         cardYears.forEach((year) => {
           const yearData = payload.aggregates?.[String(year)] || {};
@@ -1597,7 +1600,7 @@ async function init() {
               { colorForEntry },
             )
             : buildEmptyYearCard("all", year, emptyLabel);
-          list.appendChild(card);
+          list.appendChild(buildLabeledCardRow(String(year), card, "year"));
         });
         section.appendChild(list);
         heatmaps.appendChild(section);
@@ -1617,7 +1620,13 @@ async function init() {
             ? trimOldestEmptyYears(years, yearTotals)
             : years.slice();
           if (showMoreStats) {
-            list.appendChild(buildStatsOverview(payload, [type], cardYears, frequencyColor));
+            list.appendChild(
+              buildLabeledCardRow(
+                "Workout Frequency",
+                buildStatsOverview(payload, [type], cardYears, frequencyColor),
+                "frequency",
+              ),
+            );
           }
           cardYears.forEach((year) => {
             const aggregates = payload.aggregates?.[String(year)]?.[type] || {};
@@ -1625,7 +1634,7 @@ async function init() {
             const card = total > 0
               ? buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" })
               : buildEmptyYearCard(type, year);
-            list.appendChild(card);
+            list.appendChild(buildLabeledCardRow(String(year), card, "year"));
           });
           if (!list.childElementCount) {
             return;

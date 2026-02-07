@@ -26,6 +26,7 @@
         --grid-pad-left: 6px;
         --axis-width: 36px;
         --axis-gap: 8px;
+        --heatmap-label-row-height: 18px;
         --label-row-height: 32px;
         --label-gap: 6px;
         --label-gap-rotated: 10px;
@@ -337,6 +338,18 @@
         gap: 16px;
       }
 
+      .labeled-card-row {
+        display: grid;
+        gap: 6px;
+      }
+
+      .labeled-card-title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.1;
+        color: var(--text);
+      }
+
       .card {
         background: var(--card);
         border: 1px solid rgba(148, 163, 184, 0.2);
@@ -435,22 +448,15 @@
         --label-gap-rotated: 10px;
         display: grid;
         grid-template-columns: max-content minmax(180px, 1fr);
-        grid-template-rows: auto 1fr;
         column-gap: var(--more-stats-col-gap);
         row-gap: 0;
         align-items: start;
       }
 
-      .more-stats-title {
-        margin: 0;
-        grid-column: 1;
-        grid-row: 1;
-      }
-
       .more-stats-body {
         display: block;
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 1;
         margin-top: 0;
       }
 
@@ -482,11 +488,11 @@
         align-items: stretch;
         gap: 8px;
         grid-column: 2;
-        grid-row: 1 / span 2;
+        grid-row: 1;
         width: max-content;
         max-width: 100%;
         align-self: stretch;
-        justify-content: center;
+        justify-content: space-between;
         justify-self: end;
       }
 
@@ -758,36 +764,31 @@
       }
 
       @media (min-width: 721px) {
-        .year-card {
-          display: grid;
-          grid-template-columns: max-content minmax(180px, 1fr);
-          grid-template-rows: auto auto;
-          column-gap: 16px;
+        .labeled-card-row {
+          grid-template-columns: max-content minmax(0, 1fr);
+          column-gap: 12px;
           row-gap: 0;
+          align-items: start;
         }
 
-        .year-card .card-title {
-          grid-column: 1;
-          grid-row: 1;
-          margin-bottom: 0;
+        .labeled-card-row .card {
+          margin: 0;
         }
 
-        .year-card .card-body {
-          display: contents;
-        }
-
-        .year-card .heatmap-area {
-          grid-column: 1;
-          grid-row: 2;
+        .labeled-card-title {
+          padding-top: 2px;
         }
 
         .year-card .card-stats.side-stats-column {
-          grid-column: 2;
-          grid-row: 1 / span 2;
+          align-self: stretch;
+          padding-top: var(--heatmap-label-row-height);
+          align-content: space-between;
         }
 
-        .side-stats-column {
-          align-self: center;
+        .more-stats .side-stats-column {
+          align-self: stretch;
+          padding-top: var(--label-row-height);
+          justify-content: space-between;
         }
       }
 
@@ -801,6 +802,7 @@
           --grid-pad-left: 4px;
           --axis-width: 34px;
           --axis-gap: 8px;
+          --heatmap-label-row-height: 16px;
           --label-row-height: 28px;
           --label-gap: 5px;
           --label-gap-rotated: 8px;
@@ -862,6 +864,13 @@
         .summary {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+        .labeled-card-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        .labeled-card-title {
+          margin-left: 2px;
+        }
         .heatmap-area {
           grid-template-columns: 32px max-content;
           grid-template-rows: 16px auto;
@@ -897,17 +906,17 @@
           --more-stats-followup-shift: 0px;
           --label-gap-rotated: 8px;
           grid-template-columns: 1fr;
-          grid-template-rows: auto auto auto;
+          grid-template-rows: auto auto;
           row-gap: 8px;
         }
         .more-stats-body {
           grid-column: 1;
-          grid-row: 2;
+          grid-row: 1;
           margin-top: 0;
         }
         .more-stats-facts {
           grid-column: 1;
-          grid-row: 3;
+          grid-row: 2;
           flex-direction: row;
           flex-wrap: wrap;
           gap: 8px;

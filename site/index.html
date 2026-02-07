@@ -339,8 +339,8 @@
       }
 
       .labeled-card-row {
-        position: relative;
-        display: block;
+        display: grid;
+        gap: 6px;
       }
 
       .labeled-card-title {
@@ -765,6 +765,7 @@
 
       @media (min-width: 721px) {
         .labeled-card-row {
+          position: relative;
           display: block;
         }
 
@@ -847,6 +848,10 @@
         }
         body {
           padding: 24px 12px;
+          overflow-x: hidden;
+        }
+        .app {
+          overflow-x: hidden;
         }
         header,
         .card {
@@ -902,22 +907,16 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         .labeled-card-row {
-          display: block;
+          grid-template-columns: 1fr;
+          gap: 6px;
         }
         .labeled-card-title {
-          position: absolute;
-          top: 10px;
-          left: 14px;
-          right: 14px;
-          z-index: 2;
-          font-size: 13px;
-          line-height: 1;
-          pointer-events: none;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          position: static;
+          width: auto;
+          max-width: none;
+          white-space: normal;
           text-align: left;
-          margin-left: 0;
+          margin-left: 2px;
         }
         .heatmap-area {
           grid-template-columns: 32px max-content;

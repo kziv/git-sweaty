@@ -21,6 +21,7 @@ README_PATH = "README.md"
 SITE_DATA_PATH = os.path.join("site", "data.json")
 README_PREVIEW_TYPE = "AllWorkouts"
 README_PREVIEW_YEAR = 2025
+README_PREVIEW_IMAGE_PATH = os.path.join("site", "readme-preview.png")
 
 CELL = 12
 GAP = 2
@@ -329,8 +330,8 @@ def _all_workouts_preview_color(entry: Dict, type_meta: Dict[str, Dict[str, str]
 def _readme_section() -> str:
     return (
         "Preview:\n\n"
-        f"![All Workouts {README_PREVIEW_YEAR}]"
-        f"(heatmaps/{README_PREVIEW_TYPE}/{README_PREVIEW_YEAR}.svg)\n"
+        "![Dashboard Preview]"
+        f"({README_PREVIEW_IMAGE_PATH})\n"
     )
 
 

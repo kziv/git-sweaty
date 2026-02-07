@@ -8,7 +8,7 @@ Sync Strava activities, normalize and aggregate them, and generate GitHub-style 
 <!-- HEATMAPS:START -->
 Preview:
 
-![All Workouts 2025](heatmaps/AllWorkouts/2025.svg)
+![Dashboard Preview](site/readme-preview.png)
 <!-- HEATMAPS:END -->
 
 ## Quick Start

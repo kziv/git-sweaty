@@ -29,6 +29,7 @@
         --label-row-height: 32px;
         --label-gap: 6px;
         --label-gap-rotated: 10px;
+        --mobile-stats-left-offset: 0px;
         --radius: 14px;
         --shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
       }
@@ -768,6 +769,7 @@
           --label-row-height: 28px;
           --label-gap: 5px;
           --label-gap-rotated: 8px;
+          --mobile-stats-left-offset: calc(30px - 3ch);
         }
         body {
           padding: 24px 12px;
@@ -843,7 +845,8 @@
           flex-wrap: wrap;
           gap: 8px;
           width: max-content;
-          max-width: 100%;
+          margin-left: var(--mobile-stats-left-offset);
+          max-width: calc(100% - var(--mobile-stats-left-offset));
           justify-content: flex-start;
           align-content: flex-start;
         }

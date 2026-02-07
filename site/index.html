@@ -29,7 +29,7 @@
         --label-row-height: 32px;
         --label-gap: 6px;
         --label-gap-rotated: 10px;
-        --mobile-stats-left-offset: 0px;
+        --narrow-stats-left-offset: 0px;
         --radius: 14px;
         --shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
       }
@@ -769,7 +769,7 @@
           --label-row-height: 28px;
           --label-gap: 5px;
           --label-gap-rotated: 8px;
-          --mobile-stats-left-offset: calc(30px - 3ch);
+          --narrow-stats-left-offset: 14px;
         }
         body {
           padding: 24px 12px;
@@ -845,8 +845,8 @@
           flex-wrap: wrap;
           gap: 8px;
           width: max-content;
-          margin-left: var(--mobile-stats-left-offset);
-          max-width: calc(100% - var(--mobile-stats-left-offset));
+          margin-left: var(--narrow-stats-left-offset);
+          max-width: calc(100% - var(--narrow-stats-left-offset));
           justify-content: flex-start;
           align-content: flex-start;
         }
@@ -877,13 +877,14 @@
           flex-wrap: wrap;
           gap: 8px;
           margin-top: 12px;
+          margin-left: var(--narrow-stats-left-offset);
           align-self: start;
           justify-self: start;
           justify-content: flex-start;
           align-items: stretch;
           align-content: flex-start;
           width: max-content;
-          max-width: 100%;
+          max-width: calc(100% - var(--narrow-stats-left-offset));
           -webkit-text-size-adjust: 100%;
           text-size-adjust: 100%;
         }

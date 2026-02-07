@@ -907,16 +907,27 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         .labeled-card-row {
-          grid-template-columns: 1fr;
-          gap: 6px;
+          position: relative;
+          display: block;
         }
         .labeled-card-title {
-          position: static;
-          width: auto;
-          max-width: none;
-          white-space: normal;
+          position: absolute;
+          top: 10px;
+          left: 14px;
+          right: 14px;
+          z-index: 2;
+          font-size: 13px;
+          line-height: 1;
+          pointer-events: none;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           text-align: left;
-          margin-left: 2px;
+          margin-left: 0;
+        }
+        .card-empty-year .year-empty-placeholder {
+          margin-left: 56px;
+          max-width: calc(100% - 56px);
         }
         .heatmap-area {
           grid-template-columns: 32px max-content;

@@ -780,12 +780,14 @@
           position: absolute;
           top: 10px;
           left: 14px;
-          right: auto;
+          right: 14px;
           z-index: 2;
           font-size: 14px;
           line-height: 1;
           text-align: left;
           white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           pointer-events: none;
         }
 
@@ -906,15 +908,14 @@
           position: absolute;
           top: 10px;
           left: 14px;
-          right: auto;
+          right: 14px;
           z-index: 2;
           font-size: 13px;
           line-height: 1;
           pointer-events: none;
-          width: auto;
-          max-width: none;
           white-space: nowrap;
-          text-wrap: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           text-align: left;
           margin-left: 0;
         }

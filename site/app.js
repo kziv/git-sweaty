@@ -582,7 +582,7 @@ function buildLabeledCardRow(label, card, kind) {
   title.className = "labeled-card-title";
   title.textContent = label;
 
-  card.appendChild(title);
+  row.appendChild(title);
   row.appendChild(card);
   return row;
 }

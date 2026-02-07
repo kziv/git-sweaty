@@ -488,7 +488,7 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
 
 function buildCard(type, year, aggregates, units, options = {}) {
   const card = document.createElement("div");
-  card.className = "card year-card";
+  card.className = "card";
 
   const title = document.createElement("div");
   title.className = "card-title";

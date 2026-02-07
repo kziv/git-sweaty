@@ -26,7 +26,6 @@
         --grid-pad-left: 6px;
         --axis-width: 36px;
         --axis-gap: 8px;
-        --heatmap-label-row-height: 18px;
         --label-row-height: 32px;
         --label-gap: 6px;
         --label-gap-rotated: 10px;
@@ -757,19 +756,6 @@
         transform: none;
       }
 
-      @media (min-width: 721px) {
-        .card-body > .card-stats {
-          margin-top: var(--heatmap-label-row-height);
-          height: calc(
-            7 * var(--cell) +
-            6 * var(--gap) +
-            var(--grid-pad-top) +
-            var(--grid-pad-bottom)
-          );
-          align-content: space-between;
-        }
-      }
-
       @media (max-width: 720px) {
         :root {
           --cell: 10px;
@@ -780,7 +766,6 @@
           --grid-pad-left: 4px;
           --axis-width: 34px;
           --axis-gap: 8px;
-          --heatmap-label-row-height: 16px;
           --label-row-height: 28px;
           --label-gap: 5px;
           --label-gap-rotated: 8px;

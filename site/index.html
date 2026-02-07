@@ -339,8 +339,11 @@
       }
 
       .labeled-card-row {
-        display: grid;
-        gap: 6px;
+        display: block;
+      }
+
+      .labeled-card-row .card {
+        position: relative;
       }
 
       .labeled-card-title {
@@ -765,7 +768,6 @@
 
       @media (min-width: 721px) {
         .labeled-card-row {
-          position: relative;
           display: block;
         }
 
@@ -901,7 +903,6 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         .labeled-card-row {
-          position: relative;
           display: block;
         }
         .labeled-card-title {

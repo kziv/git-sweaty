@@ -488,7 +488,7 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
 
 function buildCard(type, year, aggregates, units, options = {}) {
   const card = document.createElement("div");
-  card.className = "card year-card";
+  card.className = "card";
 
   const title = document.createElement("div");
   title.className = "card-title";
@@ -504,7 +504,7 @@ function buildCard(type, year, aggregates, units, options = {}) {
   body.appendChild(heatmapArea);
 
   const stats = document.createElement("div");
-  stats.className = "card-stats";
+  stats.className = "card-stats side-stats-column";
   const totals = {
     count: 0,
     distance: 0,
@@ -785,7 +785,7 @@ function buildStatsOverview(payload, types, years, color) {
   const graphs = document.createElement("div");
   graphs.className = "more-stats-grid";
   const facts = document.createElement("div");
-  facts.className = "more-stats-facts";
+  facts.className = "more-stats-facts side-stats-column";
 
   const yearsDesc = years.slice().sort((a, b) => b - a);
   const emptyColor = DEFAULT_COLORS[0];

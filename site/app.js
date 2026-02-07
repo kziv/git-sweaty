@@ -261,7 +261,7 @@ function formatHourLabel(hour) {
   return `${hour12}${suffix}`;
 }
 
-function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, hideDistanceElevation) {
+function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, hideDistanceElevation, onTypeCardSelect) {
   summary.innerHTML = "";
 
   const totals = {
@@ -327,8 +327,10 @@ function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, 
 
   if (showTypeBreakdown) {
     types.forEach((type) => {
-      const typeCard = document.createElement("div");
-      typeCard.className = "summary-card";
+      const typeCard = document.createElement("button");
+      typeCard.type = "button";
+      typeCard.className = "summary-card summary-card-action";
+      typeCard.title = `Filter: ${displayType(type)}`;
       const title = document.createElement("div");
       title.className = "summary-title";
       title.textContent = summaryTypeTitle(type);
@@ -343,6 +345,9 @@ function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, 
       value.appendChild(text);
       typeCard.appendChild(title);
       typeCard.appendChild(value);
+      if (onTypeCardSelect) {
+        typeCard.addEventListener("click", () => onTypeCardSelect(type));
+      }
       summary.appendChild(typeCard);
     });
   }
@@ -1636,7 +1641,18 @@ async function init() {
     const showTypeBreakdown = types.length > 1;
     const showActiveDays = types.length > 1 && Boolean(heatmaps);
     const hideDistanceElevation = shouldHideDistanceElevation(payload, types, years);
-    buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, hideDistanceElevation);
+    buildSummary(
+      payload,
+      types,
+      years,
+      showTypeBreakdown,
+      showActiveDays,
+      hideDistanceElevation,
+      (type) => {
+        toggleType(type);
+        update();
+      },
+    );
   }
 
   renderButtons(typeButtons, typeOptions, (value) => {

@@ -771,6 +771,11 @@
           align-items: start;
         }
 
+        .labeled-card-row-frequency {
+          grid-template-columns: 76px minmax(0, 1fr);
+          column-gap: 8px;
+        }
+
         .labeled-card-row .card {
           margin: 0;
         }
@@ -779,15 +784,32 @@
           padding-top: 2px;
         }
 
+        .labeled-card-row-frequency .labeled-card-title {
+          max-width: 76px;
+          line-height: 1.05;
+          white-space: normal;
+          text-wrap: balance;
+        }
+
         .year-card .card-stats.side-stats-column {
-          align-self: stretch;
-          padding-top: var(--heatmap-label-row-height);
+          margin-top: var(--heatmap-label-row-height);
+          height: calc(
+            7 * var(--cell) +
+            6 * var(--gap) +
+            var(--grid-pad-top) +
+            var(--grid-pad-bottom)
+          );
           align-content: space-between;
         }
 
         .more-stats .side-stats-column {
-          align-self: stretch;
-          padding-top: var(--label-row-height);
+          margin-top: var(--label-row-height);
+          height: calc(
+            var(--matrix-rows) * var(--cell) +
+            (var(--matrix-rows) - 1) * var(--gap) +
+            var(--grid-pad-top) +
+            var(--grid-pad-bottom)
+          );
           justify-content: space-between;
         }
       }

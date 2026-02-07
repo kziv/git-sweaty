@@ -785,7 +785,6 @@ function buildStatsOverview(payload, types, years, color) {
   facts.className = "more-stats-facts side-stats-column";
 
   const yearsDesc = years.slice().sort((a, b) => b - a);
-  card.style.setProperty("--matrix-rows", String(yearsDesc.length));
   const emptyColor = DEFAULT_COLORS[0];
 
   const dayMatrix = yearsDesc.map(() => new Array(7).fill(0));

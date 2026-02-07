@@ -765,52 +765,54 @@
 
       @media (min-width: 721px) {
         .labeled-card-row {
-          grid-template-columns: max-content minmax(0, 1fr);
-          column-gap: 12px;
-          row-gap: 0;
-          align-items: start;
+          position: relative;
+          display: block;
         }
 
         .labeled-card-row-frequency {
-          grid-template-columns: 76px minmax(0, 1fr);
-          column-gap: 8px;
+          display: block;
         }
 
         .labeled-card-row .card {
           margin: 0;
+          width: 100%;
         }
 
         .labeled-card-title {
-          padding-top: 2px;
+          position: absolute;
+          top: 2px;
+          right: calc(100% + 10px);
+          text-align: right;
+          white-space: nowrap;
         }
 
         .labeled-card-row-frequency .labeled-card-title {
-          max-width: 76px;
+          width: 86px;
           line-height: 1.05;
           white-space: normal;
           text-wrap: balance;
         }
 
+        .year-card .card-body {
+          align-items: center;
+        }
+
         .year-card .card-stats.side-stats-column {
-          margin-top: var(--heatmap-label-row-height);
-          height: calc(
-            7 * var(--cell) +
-            6 * var(--gap) +
-            var(--grid-pad-top) +
-            var(--grid-pad-bottom)
-          );
-          align-content: space-between;
+          align-self: center;
+          margin-top: 0;
+          height: auto;
+          align-content: start;
+        }
+
+        .more-stats {
+          align-items: center;
         }
 
         .more-stats .side-stats-column {
-          margin-top: var(--label-row-height);
-          height: calc(
-            var(--matrix-rows) * var(--cell) +
-            (var(--matrix-rows) - 1) * var(--gap) +
-            var(--grid-pad-top) +
-            var(--grid-pad-bottom)
-          );
-          justify-content: space-between;
+          align-self: center;
+          margin-top: 0;
+          height: auto;
+          justify-content: flex-start;
         }
       }
 
@@ -891,6 +893,11 @@
           gap: 6px;
         }
         .labeled-card-title {
+          position: static;
+          width: auto;
+          max-width: none;
+          white-space: normal;
+          text-align: left;
           margin-left: 2px;
         }
         .heatmap-area {

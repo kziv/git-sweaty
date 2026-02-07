@@ -780,17 +780,22 @@
 
         .labeled-card-title {
           position: absolute;
-          top: 2px;
-          right: calc(100% + 10px);
-          text-align: right;
+          top: 10px;
+          left: 14px;
+          right: auto;
+          z-index: 2;
+          font-size: 14px;
+          line-height: 1;
+          text-align: left;
           white-space: nowrap;
+          pointer-events: none;
         }
 
         .labeled-card-row-frequency .labeled-card-title {
-          width: 86px;
-          line-height: 1.05;
-          white-space: normal;
-          text-wrap: balance;
+          width: auto;
+          line-height: 1;
+          white-space: nowrap;
+          text-wrap: nowrap;
         }
 
         .year-card .card-body {

@@ -13,7 +13,7 @@ from generate_heatmaps import generate as generate_heatmaps
 SUMMARY_TXT = os.path.join("data", "last_sync_summary.txt")
 README_MD = "README.md"
 README_LIVE_SITE_RE = re.compile(
-    r"(- Live site:\s*\[Interactive Heatmaps\]\()https?://[^)]+(\))",
+    r"(?im)^(-\s*(?:Live site:\s*\[Interactive Heatmaps\]|View the Interactive \[Activity Dashboard\])\()https?://[^)]+(\)\s*)$",
     re.IGNORECASE,
 )
 

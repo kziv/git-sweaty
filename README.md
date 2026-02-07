@@ -9,7 +9,7 @@ Generated data is stored on a dedicated `dashboard-data` branch so `main` stays 
 <!-- HEATMAPS:START -->
 Preview:
 
-![Dashboard Preview](site/readme-preview-20260207.png)
+![Dashboard Preview](https://raw.githubusercontent.com/aspain/git-sweaty/5533f31/site/readme-preview-20260207.png)
 <!-- HEATMAPS:END -->
 
 ## Quick Start

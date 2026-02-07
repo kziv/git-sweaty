@@ -1,6 +1,7 @@
 # Workout --> GitHub Heatmap Dashboard
 
-Sync Strava activities, normalize and aggregate them, and generate GitHub-style heatmaps per workout type/year. Populates an interactive, free GitHub Pages–hosted dashboard, automatically refreshed daily.
+Sync Strava activities, normalize and aggregate them, and generate GitHub-style heatmaps per workout type/year. Populates an interactive, free GitHub Pages-hosted dashboard, automatically refreshed daily.
+Generated data is stored on a dedicated `dashboard-data` branch so `main` stays fork-sync friendly.
 
 - View the Interactive [Activity Dashboard](https://aspain.github.io/git-sweaty/)
 - Once setup is complete, this dashboard link will automatically update to your own GitHub Pages URL.
@@ -51,6 +52,7 @@ This is the fastest path, but it requires a local clone and GitHub CLI (`gh`) au
 7. Run [Sync Strava Heatmaps](../../actions/workflows/sync.yml):
    - If GitHub shows an **Enable workflows** button in [Actions](../../actions), click it first.
    - Go to [Actions](../../actions) → [Sync Strava Heatmaps](../../actions/workflows/sync.yml) → **Run workflow**.
+   - Keep **Update README dashboard URL in this fork** enabled on your first run so your README link is personalized automatically.
    - The same workflow is also scheduled in `.github/workflows/sync.yml` (daily at `06:00 UTC`).
 8. Open your live site at `https://<your-username>.github.io/<repo-name>/` after deploy finishes.
 
@@ -101,16 +103,25 @@ This is the fastest path, but it requires a local clone and GitHub CLI (`gh`) au
 6. Run [Sync Strava Heatmaps](../../actions/workflows/sync.yml):
    - If GitHub shows an **Enable workflows** button in [Actions](../../actions), click it first.
    - Go to [Actions](../../actions) → [Sync Strava Heatmaps](../../actions/workflows/sync.yml) → **Run workflow**.
+   - Keep **Update README dashboard URL in this fork** enabled on your first run so your README link is personalized automatically.
    - The same workflow is also scheduled in `.github/workflows/sync.yml` (daily at `06:00 UTC`).
 
 7. Open your live site at `https://<your-username>.github.io/<repo-name>/` after deploy finishes.
 
 Both options run the same workflow, which will:
+- restore persisted state from the `dashboard-data` branch (if present)
 - sync raw activities into `activities/raw/` (local-only; not committed)
 - normalize + merge into `data/activities_normalized.json` (persisted history)
 - aggregate into `data/daily_aggregates.json`
 - generate SVGs in `heatmaps/`
 - build `site/data.json`
+- commit generated outputs to `dashboard-data` (not `main`)
+
+## Fork Sync Best Practice
+
+- To pull in new updates and features from the original repo, use GitHub's **Sync fork** button on your fork's `main` branch.
+- This project is set up to make upstream syncs much less likely to hit merge conflicts from personal dashboard data.
+- After syncing, run [Sync Strava Heatmaps](../../actions/workflows/sync.yml) if you want your dashboard refreshed immediately.
 
 ## Activity Type Note
 
@@ -155,8 +166,8 @@ Key options:
 
 ## Notes
 
-- Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per‑activity payloads and gps location traces.
+- Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per-activity payloads and GPS location traces.
 - If neither `sync.start_date` nor `sync.lookback_years` is set, sync backfills all available Strava history.
-- On first run for a new athlete, the workflow auto-resets persisted outputs (`data/*.json`, `heatmaps/`, `site/data.json`) to avoid mixing data across forks. A fingerprint-only file is stored at `data/athletes.json` and does not include athlete IDs or profile data.
+- On first run for a new athlete, the workflow auto-resets persisted outputs (`data/*.json`, `heatmaps/`, `site/data.json`) on `dashboard-data` to avoid mixing data across forks. A fingerprint-only file is stored at `data/athletes.json` and does not include athlete IDs or profile data.
 - The sync script rate-limits to free Strava API caps (200 overall / 15 min, 2,000 overall daily; 100 read / 15 min, 1,000 read daily). The cursor is stored in `data/backfill_state.json` and resumes automatically. Once backfill is complete, only the recent sync runs.
 - The GitHub Pages site is optimized for responsive desktop/mobile viewing.

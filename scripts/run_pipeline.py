@@ -114,7 +114,13 @@ def _update_readme_live_site_link() -> None:
         f.write(updated)
 
 
-def run_pipeline(skip_sync: bool, dry_run: bool, prune_deleted: bool, commit: bool) -> None:
+def run_pipeline(
+    skip_sync: bool,
+    dry_run: bool,
+    prune_deleted: bool,
+    commit: bool,
+    update_readme_link: bool,
+) -> None:
     if not skip_sync:
         summary = sync_strava(dry_run=dry_run, prune_deleted=prune_deleted)
         print(f"Synced: {summary}")
@@ -126,7 +132,8 @@ def run_pipeline(skip_sync: bool, dry_run: bool, prune_deleted: bool, commit: bo
     _write_aggregates(aggregates)
 
     generate_heatmaps()
-    _update_readme_live_site_link()
+    if update_readme_link:
+        _update_readme_live_site_link()
 
     if commit and not dry_run:
         message = _summary_message("Sync Strava: update heatmaps")
@@ -139,6 +146,11 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--prune-deleted", action="store_true")
     parser.add_argument("--commit", action="store_true")
+    parser.add_argument(
+        "--update-readme-link",
+        action="store_true",
+        help="Update README dashboard URL based on the current repository slug.",
+    )
     args = parser.parse_args()
 
     run_pipeline(
@@ -146,6 +158,7 @@ def main() -> int:
         dry_run=args.dry_run,
         prune_deleted=args.prune_deleted,
         commit=args.commit,
+        update_readme_link=args.update_readme_link,
     )
     return 0
 

@@ -433,7 +433,7 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
 
     const lines = [
       dateStr,
-      `${entry.count} workout${entry.count === 1 ? "" : "s"}`,
+      `${entry.count} ${entry.count === 1 ? "activity" : "activities"}`,
     ];
 
     const showDistanceElevation = (entry.distance || 0) > 0 || (entry.elevation_gain || 0) > 0;
@@ -816,7 +816,7 @@ function buildStatsOverview(payload, types, years, color) {
   });
 
   const formatBreakdown = (total, breakdown) => {
-    const lines = [`Total: ${total} workout${total === 1 ? "" : "s"}`];
+    const lines = [`Total: ${total} ${total === 1 ? "activity" : "activities"}`];
     if (types.length > 1) {
       types.forEach((type) => {
         const count = breakdown[type] || 0;
@@ -930,7 +930,7 @@ function buildStatsOverview(payload, types, years, color) {
   const bestDayIndex = dayTotals.reduce((best, value, index) => (
     value > dayTotals[best] ? index : best
   ), 0);
-  const bestDayLabel = `${DAYS[bestDayIndex]} (${dayTotals[bestDayIndex]} workout${dayTotals[bestDayIndex] === 1 ? "" : "s"})`;
+  const bestDayLabel = `${DAYS[bestDayIndex]} (${dayTotals[bestDayIndex]} ${dayTotals[bestDayIndex] === 1 ? "activity" : "activities"})`;
 
   const monthTotals = monthMatrix.reduce(
     (acc, row) => row.map((value, index) => acc[index] + value),
@@ -939,13 +939,13 @@ function buildStatsOverview(payload, types, years, color) {
   const bestMonthIndex = monthTotals.reduce((best, value, index) => (
     value > monthTotals[best] ? index : best
   ), 0);
-  const bestMonthLabel = `${MONTHS[bestMonthIndex]} (${monthTotals[bestMonthIndex]} workout${monthTotals[bestMonthIndex] === 1 ? "" : "s"})`;
+  const bestMonthLabel = `${MONTHS[bestMonthIndex]} (${monthTotals[bestMonthIndex]} ${monthTotals[bestMonthIndex] === 1 ? "activity" : "activities"})`;
 
   const bestHourIndex = hourTotals.reduce((best, value, index) => (
     value > hourTotals[best] ? index : best
   ), 0);
   const bestHourLabel = activities.length
-    ? `${formatHourLabel(bestHourIndex)} (${hourTotals[bestHourIndex]} workout${hourTotals[bestHourIndex] === 1 ? "" : "s"})`
+    ? `${formatHourLabel(bestHourIndex)} (${hourTotals[bestHourIndex]} ${hourTotals[bestHourIndex] === 1 ? "activity" : "activities"})`
     : "Not enough time data yet";
 
   const columns = [
@@ -1143,10 +1143,10 @@ function renderStats(payload, types, years, color) {
   const bestDayIndex = dayTotals.reduce((best, value, index) => (
     value > dayTotals[best] ? index : best
   ), 0);
-  const bestDayLabel = `${DAYS[bestDayIndex]} (${dayTotals[bestDayIndex]} workout${dayTotals[bestDayIndex] === 1 ? "" : "s"})`;
+  const bestDayLabel = `${DAYS[bestDayIndex]} (${dayTotals[bestDayIndex]} ${dayTotals[bestDayIndex] === 1 ? "activity" : "activities"})`;
 
   const formatBreakdown = (total, breakdown) => {
-    const lines = [`Total: ${total} workout${total === 1 ? "" : "s"}`];
+    const lines = [`Total: ${total} ${total === 1 ? "activity" : "activities"}`];
     types.forEach((type) => {
       const count = breakdown[type] || 0;
       if (count > 0) {
@@ -1157,7 +1157,7 @@ function renderStats(payload, types, years, color) {
   };
 
   const row1 = buildStatRow();
-  const dayPanel = buildStatPanel("Workout Frequency by Day of Week");
+  const dayPanel = buildStatPanel("Activity Frequency by Day of Week");
   dayPanel.body.appendChild(
     buildYearMatrix(
       yearsDesc,
@@ -1184,10 +1184,10 @@ function renderStats(payload, types, years, color) {
   const bestMonthIndex = monthTotals.reduce((best, value, index) => (
     value > monthTotals[best] ? index : best
   ), 0);
-  const bestMonthLabel = `${MONTHS[bestMonthIndex]} (${monthTotals[bestMonthIndex]} workout${monthTotals[bestMonthIndex] === 1 ? "" : "s"})`;
+  const bestMonthLabel = `${MONTHS[bestMonthIndex]} (${monthTotals[bestMonthIndex]} ${monthTotals[bestMonthIndex] === 1 ? "activity" : "activities"})`;
 
   const row2 = buildStatRow();
-  const monthPanel = buildStatPanel("Workout Frequency by Month");
+  const monthPanel = buildStatPanel("Activity Frequency by Month");
   monthPanel.body.appendChild(
     buildYearMatrix(
       yearsDesc,
@@ -1235,11 +1235,11 @@ function renderStats(payload, types, years, color) {
   const hourLabels = hourTotals.map((_, hour) => (hour % 3 === 0 ? formatHourLabel(hour) : ""));
   const hourTooltipLabels = hourTotals.map((_, hour) => `${formatHourLabel(hour)} (${hour}:00)`);
   const hourSubtitle = activities.length
-    ? `Peak hour: ${formatHourLabel(bestHourIndex)} (${hourTotals[bestHourIndex]} workout${hourTotals[bestHourIndex] === 1 ? "" : "s"})`
+    ? `Peak hour: ${formatHourLabel(bestHourIndex)} (${hourTotals[bestHourIndex]} ${hourTotals[bestHourIndex] === 1 ? "activity" : "activities"})`
     : "Peak hour: not enough time data yet";
 
   const row3 = buildStatRow();
-  const hourPanel = buildStatPanel("Workout Frequency by Time of Day");
+  const hourPanel = buildStatPanel("Activity Frequency by Time of Day");
   if (activities.length) {
     hourPanel.body.appendChild(
       buildYearMatrix(
@@ -1572,7 +1572,7 @@ async function init() {
         if (showMoreStats) {
           list.appendChild(
             buildLabeledCardRow(
-              "Workout Frequency",
+              "Activity Frequency",
               buildStatsOverview(payload, types, cardYears, frequencyColor),
               "frequency",
             ),
@@ -1622,7 +1622,7 @@ async function init() {
           if (showMoreStats) {
             list.appendChild(
               buildLabeledCardRow(
-                "Workout Frequency",
+                "Activity Frequency",
                 buildStatsOverview(payload, [type], cardYears, frequencyColor),
                 "frequency",
               ),
